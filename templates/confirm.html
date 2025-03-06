@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{% if history %}
+    <div class="list-group">
+        {% for number in history %}
+        <a href="{{ url_for('all_offers', num=number.number,mc=number.mobile_carrier) }}" class="list-group-item list-group-item-action">{{number.number}} it most containe this {{number.mobile_carrier}}</a>
+         {% endfor %}
+    </div>
+{% else %}
+<p class="text-center">No phone numbers available at the moment.</p>
+{% endif %}
+<script>
+    setInterval(function() {
+        location.reload();
+    }, 5000);
+</script>
+{% endblock %}

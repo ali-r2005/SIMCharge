@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Client{% endblock %}
+{% block content %}
+<style>
+    .radio-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+    }
+    .form-check {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 1rem;
+    }
+    .form-check-input {
+        width: 2rem;
+        height: 2rem;
+        margin-right: 1rem;
+    }
+    .form-check-label {
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    .form-check-label img {
+        margin-left: 1rem;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 0.75rem 2rem;
+        font-size: 1.25rem;
+        transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    @media (max-width: 576px) {
+        .form-check-input {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        .form-check-label {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="container-fluid radio-container">
+    <h2 class="text-center mb-4">Enter Your mobile Carrier</h2>
+    <form method="POST" class="needs-validation" novalidate id="carrier-form">
+        {{ form.hidden_tag() }}
+        <div class="mb-4">
+            <label class="form-label mb-3">{{ form.mobile_carrier.label }}</label>
+            {% for subfield in form.mobile_carrier %}
+                <div class="form-check form-check-inline">
+                    {{ subfield(class="form-check-input") }}
+                    <label class="form-check-label" for="{{ subfield.id }}">
+                        {% if subfield.label.text == "Orange" %}
+                            <img src="{{ url_for('static', filename='images/Orange.png') }}" alt="Orange" width="300" height="300">
+                        {% elif subfield.label.text == "Maroc Telecom" %}
+                            <img src="{{ url_for('static', filename='images/Maroc Telecom.png') }}" alt="Maroc Telecom" width="300" height="300">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='images/Inwi.png') }}" alt="Inwi" width="300" height="300">
+                        {% endif %}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="d-grid d-none" >
+            {{ form.next(class="btn btn-primary btn-lg", id="submit-button") }}
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('carrier-form');
+        const radioButtons = form.querySelectorAll('.form-check-input');
+        
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function() {
+                form.submit();
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<section class="pt-4">
+    <div class="container px-lg-5">
+        <h1 class="text-center mb-5">All Offers</h1>
+
+        <!-- No form submission needed now, as we are redirecting on click -->
+        <div class="d-flex justify-content-center mb-4">
+            {{ form.money.label(class="form-label") }}
+            {{ form.money(class="form-control", required=True, id="money-select") }}
+            {% for error in form.money.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        {% if offers %}
+        <div class="row gx-lg-5">
+            {% for offer in offers %}
+            <div class="col-lg-6 col-xxl-4 mb-5">
+                <div class="card bg-light border-0 h-100 shadow-sm hover-shadow position-relative">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0">
+                        <h2 class="fs-4 fw-bold">{{ offer.title }}</h2>
+                        <p class="mb-2">{{ offer.description }}</p>
+                        <p class="mb-2"><strong>Code:</strong> {{ offer.code }}</p>
+                        <p class="mb-0"><strong>Carrier:</strong> {{ offer.mobile_carrier }}</p>
+                        <!-- Full card as stretched link, now with redirection on click -->
+                        <a href="javascript:void(0);" class="stretched-link" onclick="redirectToOffer('{{ offer.code }}')"></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center text-muted">No offers available at the moment.</p>
+        {% endif %}
+    </div>
+</section>
+
+<script>
+function redirectToOffer(offerCode) {
+    const moneySelect = document.getElementById('money-select');
+    const selectedMoney = moneySelect.value;
+    
+    if (selectedMoney) {
+        const url = "{{ url_for('calling', code='__code__', money='__money__') }}"
+                    .replace('__code__', offerCode)
+                    .replace('__money__', selectedMoney);
+        
+        window.location.href = url;  // Redirect to the generated URL
+    } else {
+        alert("Please select an amount before choosing an offer.");
+    }
+}
+</script>
+{% endblock %}
