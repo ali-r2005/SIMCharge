@@ -1,12 +1,18 @@
-# My Flask Project
-This is a simple Flask web application.
+# SIMCharge 📶  
+**Mobile Data Charging System for Moroccan Carriers**  
 
-## How to Run
-1. Clone the repository: `git clone https://github.com/yourusername/your-repo-name.git`
-2. Navigate to the folder: `cd your-repo-name`
-3. Create a virtual environment: `python -m venv venv`
-4. Activate it:
-   - Windows: `venv\Scripts\activate`
-   - Mac/Linux: `source venv/bin/activate`
-5. Install dependencies: `pip install -r requirements.txt`
-6. Run the app: `python app.py`
+A Flask-based web application to manage mobile data charges for Moroccan SIM cards (Orange Maroc, Maroc Telecom, Inwi).  
+
+---
+
+## Features ✨  
+- Supports **Orange Maroc**, **Maroc Telecom**, and **Inwi** pricing plans  
+- Calculates data usage costs based on carrier-specific tariffs  
+- Simple web interface for inputting usage data  
+---
+
+## Installation 🛠️  
+1. Clone the repository:  
+   ```bash  
+   git clone https://github.com/ali-r2005/SIMCharge.git  
+   cd SIMCharge  
